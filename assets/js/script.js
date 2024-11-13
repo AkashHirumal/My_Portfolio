@@ -33,6 +33,21 @@ const testimonialsModalFunc = function () {
   overlay.classList.toggle("active");
 }
 
+// add click event to all modal items
+for (let i = 0; i < testimonialsItem.length; i++) {
+
+  testimonialsItem[i].addEventListener("click", function () {
+
+    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
+    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
+    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
+    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
+
+    testimonialsModalFunc();
+
+  });
+
+}
 
 // add click event to modal close button
 modalCloseBtn.addEventListener("click", testimonialsModalFunc);
@@ -78,6 +93,47 @@ const filterFunc = function (selectedValue) {
   }
 
 }
+
+// add event in all filter button items for large screen
+let lastClickedBtn = filterBtn[0];
+
+for (let i = 0; i < filterBtn.length; i++) {
+
+  filterBtn[i].addEventListener("click", function () {
+
+    let selectedValue = this.innerText.toLowerCase();
+    selectValue.innerText = this.innerText;
+    filterFunc(selectedValue);
+
+    lastClickedBtn.classList.remove("active");
+    this.classList.add("active");
+    lastClickedBtn = this;
+
+  });
+
+}
+
+
+
+// contact form variables
+const form = document.querySelector("[data-form]");
+const formInputs = document.querySelectorAll("[data-form-input]");
+const formBtn = document.querySelector("[data-form-btn]");
+
+// add event to all form input field
+for (let i = 0; i < formInputs.length; i++) {
+  formInputs[i].addEventListener("input", function () {
+
+    // check form validation
+    if (form.checkValidity()) {
+      formBtn.removeAttribute("disabled");
+    } else {
+      formBtn.setAttribute("disabled", "");
+    }
+
+  });
+}
+
 
 
 // page navigation variables
